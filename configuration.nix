@@ -19,6 +19,7 @@
       pkgs.git
       pkgs.gh
       pkgs.gnome-secrets
+      pkgs.telegram-desktop
     ];
     
     # git
@@ -66,7 +67,6 @@
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
-  programs.nm-applet.enable = true;
 
   # Set your time zone.
   time.timeZone = "Asia/Yekaterinburg";
@@ -85,12 +85,15 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
+  services.xserver.displayManager.sddm.enable = true;
+  hardware.opengl.driSupport32Bit = true;
+
+  # i3
   services.xserver.windowManager.i3 = {
     enable = true;	  
     configFile = "/etc/nixos/dotfiles/i3-config";
   };
-  services.xserver.displayManager.sddm.enable = true;
-  hardware.opengl.driSupport32Bit = true;
+  programs.nm-applet.enable = true;
 
   # Configure keymap in X11
   services.xserver.displayManager.sddm.autoNumlock = true;
@@ -243,6 +246,7 @@
   };
   
   environment.systemPackages = with pkgs; [
+    pa_applet
     wget
     bat
     xclip
