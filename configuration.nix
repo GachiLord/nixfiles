@@ -37,6 +37,7 @@
         enable_audio_bell no
         confirm_os_window_close 0
         paste_actions quote-urls-at-prompt
+        map ctrl+shift+n new_os_window_with_cwd
       '';
     };
     
@@ -65,6 +66,7 @@
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  programs.nm-applet.enable = true;
 
   # Set your time zone.
   time.timeZone = "Asia/Yekaterinburg";
@@ -83,7 +85,10 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-  services.xserver.windowManager.i3.enable = true;
+  services.xserver.windowManager.i3 = {
+    enable = true;	  
+    configFile = "/etc/nixos/dotfiles/i3-config";
+  };
   services.xserver.displayManager.sddm.enable = true;
   hardware.opengl.driSupport32Bit = true;
 
@@ -133,7 +138,7 @@
       DisableFirefoxAccounts = true;
       DisableAccounts = true;
       DisableFirefoxScreenshots = true;
-      DisplayBookmarksToolbar = "never"; # alternatives: "always" or "newtab"
+      DisplayBookmarksToolbar = "always"; # alternatives: "always" or "newtab"
 
       /* ---- EXTENSIONS ---- */
       # Check about:support for extension/add-on ID strings.
@@ -235,12 +240,9 @@
     EDITOR = "nvim";
     VISUAL = "nvim";
     TERMINAL = "kitty";
-    GIT_AUTHOR_EMAIL="name504172@gmail.com";
-    GIT_AUTHOR_NAME="GachiLord";
   };
   
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     bat
     xclip
@@ -257,6 +259,21 @@
     git
     neovim
     gh
+    ((vim_configurable.override {  }).customize{
+      name = "vim";
+      # Install plugins for example for syntax highlighting of nix files
+      vimrcConfig.packages.myplugins = with pkgs.vimPlugins; {
+        start = [ vim-nix vim-lastplace ];
+        opt = [];
+      };
+      vimrcConfig.customRC = ''
+        " your custom vimrc
+        set smartindent
+        syntax on
+        " ...
+      '';
+    }
+    )
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
