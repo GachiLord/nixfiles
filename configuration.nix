@@ -24,7 +24,7 @@
 
     # create symlinks
     home.file = {
-      "/home/oleg/nixfiles/dotfiles/nvim".source = /home/oleg/.config/nvim; 
+      "/home/oleg/.config/nvim".source = /home/oleg/nixfiles/dotfiles/nvim;
     };
     
     # git
@@ -33,6 +33,8 @@
       userName  = "GachiLord";
       userEmail = "name504172@gmail.com";
     };
+    # gh
+    programs.gh.gitCredentialHelper.enable = true;
 
     # kitty
     programs.kitty = {
