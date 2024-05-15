@@ -244,6 +244,7 @@
 
   # tmux
   programs.tmux = {
+    terminal = "screen-256color";
     escapeTime = 20;
     enable = true;
     clock24 = true;
@@ -251,6 +252,8 @@
       set -g status-bg brightblue
       set-option -g default-shell ${pkgs.zsh}/bin/zsh
       set-window-option -g mode-keys vi
+      set-option -g focus-events on
+      set-option -sa terminal-features ',xterm-kitty:RGB'
     '';
   };
 
