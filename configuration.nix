@@ -101,6 +101,8 @@
   services.xserver.enable = true;
   services.xserver.displayManager.sddm.enable = true;
   hardware.opengl.driSupport32Bit = true;
+  # xss-lock
+  programs.xss-lock.enable = true;
 
   # i3
   services.xserver.windowManager.i3 = {
@@ -229,6 +231,7 @@
     shellAliases = {
       n = "nvim";
       t = "tmux new -A";
+      lock = "loginctl lock-session";
       update = ''
         sudo cp *.nix /etc/nixos
 	sudo nixos-rebuild switch
