@@ -19,6 +19,7 @@
       pkgs.gh
       pkgs.gnome-secrets
       pkgs.telegram-desktop
+      pkgs.g810-led
     ];
 
     # create symlinks
@@ -232,6 +233,7 @@
       n = "nvim";
       t = "tmux new -A";
       lock = "loginctl lock-session";
+      led = "sudo g213-led -a 00ff00";
       update = ''
         sudo cp /home/oleg/nixfiles/*.nix /etc/nixos
 	sudo nixos-rebuild switch
@@ -292,6 +294,10 @@
     git
     neovim
     gh
+    stylua
+    ripgrep
+    fd
+    unzip
     ((vim_configurable.override {  }).customize{
       name = "vim";
       # Install plugins for example for syntax highlighting of nix files
