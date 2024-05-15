@@ -233,7 +233,7 @@
       t = "tmux new -A";
       lock = "loginctl lock-session";
       update = ''
-        sudo cp *.nix /etc/nixos
+        sudo cp /home/oleg/nixfiles/*.nix /etc/nixos
 	sudo nixos-rebuild switch
 	'';
     };
@@ -267,6 +267,11 @@
     VISUAL = "nvim";
     TERMINAL = "kitty";
   };
+
+  fonts.packages = with pkgs; [
+    nerdfonts
+  ];
+
   
   environment.systemPackages = with pkgs; [
     feh
