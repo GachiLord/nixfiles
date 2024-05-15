@@ -21,6 +21,11 @@
       pkgs.gnome-secrets
       pkgs.telegram-desktop
     ];
+
+    # create symlinks
+    home.file = {
+      "/home/oleg/nixfiles/dotfiles/nvim".source = /home/oleg/.config/nvim; 
+    };
     
     # git
     programs.git = {
@@ -91,7 +96,7 @@
   # i3
   services.xserver.windowManager.i3 = {
     enable = true;	  
-    configFile = "/etc/nixos/dotfiles/i3-config";
+    configFile = "/home/oleg/nixfiles/dotfiles/i3-config";
   };
   programs.nm-applet.enable = true;
 
@@ -215,7 +220,10 @@
     shellAliases = {
       n = "nvim";
       t = "tmux new -A";
-      update = "sudo nixos-rebuild switch";
+      update = ''
+        sudo cp *.nix /etc/nixos
+	sudo nixos-rebuild switch
+	'';
     };
 
     ohMyZsh = {
@@ -246,6 +254,7 @@
   };
   
   environment.systemPackages = with pkgs; [
+    feh
     pa_applet
     wget
     bat
