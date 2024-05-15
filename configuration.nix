@@ -16,7 +16,6 @@
     home.packages = [ 
       pkgs.kitty 
       pkgs.htop
-      pkgs.git
       pkgs.gh
       pkgs.gnome-secrets
       pkgs.telegram-desktop
@@ -26,13 +25,14 @@
     home.file = {
       "/home/oleg/.config/nvim".source = /home/oleg/nixfiles/dotfiles/nvim;
     };
-    
-    # git
+
+    # git 
     programs.git = {
       enable = true;
-      userName  = "GachiLord";
+      userName = "GachiLord";
       userEmail = "name504172@gmail.com";
     };
+    
     # gh
     programs.gh.gitCredentialHelper.enable = true;
 
@@ -58,6 +58,13 @@
     # The state version is required and should stay at the version you
     # originally installed.
     home.stateVersion = "23.11";
+  };
+
+  # git 
+  programs.git.config = { 
+    enable = true;
+    package = pkgs.gitFull;
+    credential.helper = "libsecret";
   };
 
   # use systemd-boot
