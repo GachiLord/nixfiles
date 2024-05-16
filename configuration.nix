@@ -182,6 +182,24 @@
           installation_mode = "normal_installed";
         };
       };
+
+      ManagedBookmarks = [
+        {
+          "toplevel_name"= "My bookmarks";
+        }
+        {
+          "url"= "https://www.lazyvim.org/";
+          "name"= "🚀 Getting Started | LazyVim";
+        }
+        {
+          "url"= "https://search.nixos.org/options";
+          "name"= "NixOS Search - Options";
+        }
+        {
+          "url"= "https://mynixos.com/home-manager";
+          "name"= "home-manager - MyNixOS";
+        }
+      ];
   
       /* ---- PREFERENCES ---- */
       # Check about:config for options.
