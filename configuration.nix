@@ -69,9 +69,6 @@ in
         enable = true;
 	style = "storm";
       };
-      plugins.lualine = {
-        enable = true;
-      };
       clipboard.register = "unnamedplus";
       globals.mapleader = " ";
       options = {
@@ -79,7 +76,77 @@ in
         shiftwidth = 2;
         relativenumber = true;
         termguicolors = true;
+	timeoutlen = 0;
       };
+      plugins = {
+        lualine.enable = true;
+	# friendly-snippets.enable = true;
+	lsp-format.enable = true;
+	neo-tree.enable = true;
+	notify.enable = true;
+	todo-comments.enable = true;
+	which-key.enable = true;
+
+	lsp = {
+          enable = true;
+            servers = {
+              nil_ls.enable = true; # Enable nil_ls. You can use nixd or anything you want from the docs.
+            };
+        };
+        nvim-cmp = {
+          enable = true;
+          autoEnableSources = true;
+          sources = [
+            {name = "nvim_lsp";}
+            {name = "path";}
+            {name = "buffer";}
+            {name = "luasnip";}
+          ];
+ 
+          mapping = {
+	    "<C-n>" = "cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert })";
+            "<C-p>" = "cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert })";
+            "<Down>" = "cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select })";
+            "<Up>" = "cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select })";
+            "<C-b>" = "cmp.mapping.scroll_docs(-4)";
+            "<C-f>" = "cmp.mapping.scroll_docs(4)";
+            "<C-Space>" = "cmp.mapping.complete()";
+            "<C-e>" = "cmp.mapping.close()";
+            "<CR>" = "cmp.mapping.confirm({
+              behavior = cmp.ConfirmBehavior.Replace,
+              select = true,
+            })";
+          };
+        };
+
+        telescope = {
+	  enable = true;
+	  keymaps = {
+	    "<leader><leader>" = {
+	      action = "find_files";
+	      desc = "Find files";
+	    };
+	    "<leader>g" = {
+	      action = "live_grep";
+	      desc = "Live grep";
+	    };
+	    "<leader>b" = {
+	      action = "buffers";
+	      desc = "Buffers";
+	    };
+	    "<leader>h" = {
+	      action = "help_tags";
+	      desc = "Help tags";
+	    };
+	    "<leader>d" = {
+	      action = "diagnostics";
+	      desc = "Diagnostics";
+	    };
+	  };
+	};
+
+      };
+
     };
 
     # The state version is required and should stay at the version you
