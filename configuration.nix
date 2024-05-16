@@ -4,6 +4,14 @@
 
 { config, lib, pkgs, ... }:
 
+let 
+    nixvim = import (builtins.fetchGit {
+        url = "https://github.com/nix-community/nixvim";
+        ref = "nixos-23.11";
+        # When using a different channel you can use `ref = "nixos-<version>"` to set it here
+    });
+in
+
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -21,11 +29,14 @@
       pkgs.telegram-desktop
       pkgs.g810-led
     ];
+    imports = [
+      nixvim.homeManagerModules.nixvim
+    ];
 
     # create symlinks
-    home.file = {
-      "/home/oleg/.config/nvim".source = /home/oleg/nixfiles/dotfiles/nvim;
-    };
+    # home.file = {
+    #   "/home/oleg/.config/nvim".source = /home/oleg/nixfiles/dotfiles/nvim;
+    # };
 
     # git 
     programs.git = {
@@ -51,9 +62,24 @@
     };
     
     # neovim
-    programs.neovim = {
+    programs.nixvim = {
       enable = true;
       defaultEditor = true;
+      colorschemes.tokyonight = {
+        enable = true;
+	style = "storm";
+      };
+      plugins.lualine = {
+        enable = true;
+      };
+      clipboard.register = "unnamedplus";
+      globals.mapleader = " ";
+      options = {
+        number = true;
+        shiftwidth = 2;
+        relativenumber = true;
+        termguicolors = true;
+      };
     };
 
     # The state version is required and should stay at the version you
